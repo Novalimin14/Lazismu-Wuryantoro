@@ -3,6 +3,17 @@
     'class' => 'sidebar-mini',
     'activePage' => 'laporan',
   ])
+  <style>
+    .table .text-right .row {
+    display: flex; 
+    justify-content: flex-end; 
+    gap: 10px; /* Jarak antar tombol */
+  }
+
+  .table .text-right .btn {
+      margin: 0; /* Menghapus margin default jika ada */
+  }
+  </style>
 
 @section('content')
   <div class="panel-header panel-header-sm">
@@ -12,7 +23,7 @@
       <div class="col-md-12">
         <div class="card">
           <div class="card-header">
-            <h4 class="card-title"> DATA LAPORAN</h4>
+            <h4 class="card-title"> Data Laporan</h4>
             
           </div>
           
@@ -57,7 +68,6 @@
                       </select>
                   </div>
               </div>
-              <button type="submit" class="btn btn-primary mt-3">Filter</button>
               <div class="form">
                 <label for="perPage">Show:</label>
                 <select name="perPage" id="perPage" class="form-control">
@@ -67,7 +77,10 @@
                     <option value="100" {{ request('perPage') == 100 ? 'selected' : '' }}>100</option>
                 </select>
             </div>
+              <button type="submit" class="btn btn-primary mt-3">Filter</button>
+              
           </form>
+          
                                     
           
 

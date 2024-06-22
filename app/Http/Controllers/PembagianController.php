@@ -138,7 +138,59 @@ class PembagianController extends Controller
     }
     public function exportPdf()
     {
-        $pembagian = Pembagian::all(); // Ganti YourModel dengan model Anda
+        $query = Pembagian::query();
+
+        if(request('search')) {
+            $query->where('pembagian', 'like', '%'. request('search') . '%')
+                ->orWhere('keterangan', 'like', '%'. request('search') . '%');
+        }
+
+        if(request('bulan_awal') && request('bulan_akhir') && request('tahun')) {
+            $bulan_awal = request('bulan_awal');
+            $bulan_akhir = request('bulan_akhir');
+            $tahun = request('tahun');
+            $query->where(function ($query) use ($bulan_awal, $bulan_akhir, $tahun) {
+                $query->whereYear('tanggal', $tahun)
+                    ->whereMonth('tanggal', '>=', $bulan_awal)
+                    ->whereMonth('tanggal', '<=', $bulan_akhir);
+            });
+        }elseif(request('bulan_awal') && request('bulan_akhir')) {
+            $bulan_awal = request('bulan_awal');
+            $bulan_akhir = request('bulan_akhir');
+            $query->where(function ($query) use ($bulan_awal, $bulan_akhir) {
+                $query->whereMonth('tanggal', '>=', $bulan_awal)
+                ->whereMonth('tanggal', '<=', $bulan_akhir);
+                    
+            });
+        } 
+        elseif(request('bulan_awal') && request('tahun')) {
+            $bulan_awal = request('bulan_awal');
+            $tahun = request('tahun');
+            $query->where(function ($query) use ($bulan_awal, $tahun) {
+                $query->whereYear('tanggal', $tahun)
+                    ->whereMonth('tanggal', $bulan_awal);
+            });
+        } elseif(request('bulan_akhir') && request('tahun')) {
+            $bulan_akhir = request('bulan_akhir');
+            $tahun = request('tahun');
+            $query->where(function ($query) use ($bulan_akhir, $tahun) {
+                $query->whereYear('tanggal', $tahun)
+                    ->whereMonth('tanggal', $bulan_akhir);
+            });
+        } 
+        elseif(request('bulan_awal')) {
+            $bulan_awal = request('bulan_awal');
+            $query->whereMonth('tanggal', $bulan_awal);
+        }
+        elseif(request('bulan_akhir')) {
+            $bulan_akhir = request('bulan_akhir');
+            $query->whereMonth('tanggal', $bulan_akhir);
+        }elseif(request('tahun')) {
+            $tahun = request('tahun');
+            $query->whereYear('tanggal', $tahun);
+        }
+        $pembagian = $query->get(); // 
+        
 
         $pdf = new Dompdf();
         $options = new Options();
@@ -155,6 +207,81 @@ class PembagianController extends Controller
 
         // Output PDF ke browser
         return $pdf->stream('pembagian.pdf');
+
+        // Untuk mendownload PDF secara langsung
+        // return $pdf->download('document.pdf');
+    }
+    public function exportLampiran()
+    {
+        $query = Pembagian::query();
+
+        if(request('search')) {
+            $query->where('pembagian', 'like', '%'. request('search') . '%')
+                ->orWhere('keterangan', 'like', '%'. request('search') . '%');
+        }
+
+        if(request('bulan_awal') && request('bulan_akhir') && request('tahun')) {
+            $bulan_awal = request('bulan_awal');
+            $bulan_akhir = request('bulan_akhir');
+            $tahun = request('tahun');
+            $query->where(function ($query) use ($bulan_awal, $bulan_akhir, $tahun) {
+                $query->whereYear('tanggal', $tahun)
+                    ->whereMonth('tanggal', '>=', $bulan_awal)
+                    ->whereMonth('tanggal', '<=', $bulan_akhir);
+            });
+        }elseif(request('bulan_awal') && request('bulan_akhir')) {
+            $bulan_awal = request('bulan_awal');
+            $bulan_akhir = request('bulan_akhir');
+            $query->where(function ($query) use ($bulan_awal, $bulan_akhir) {
+                $query->whereMonth('tanggal', '>=', $bulan_awal)
+                ->whereMonth('tanggal', '<=', $bulan_akhir);
+                    
+            });
+        } 
+        elseif(request('bulan_awal') && request('tahun')) {
+            $bulan_awal = request('bulan_awal');
+            $tahun = request('tahun');
+            $query->where(function ($query) use ($bulan_awal, $tahun) {
+                $query->whereYear('tanggal', $tahun)
+                    ->whereMonth('tanggal', $bulan_awal);
+            });
+        } elseif(request('bulan_akhir') && request('tahun')) {
+            $bulan_akhir = request('bulan_akhir');
+            $tahun = request('tahun');
+            $query->where(function ($query) use ($bulan_akhir, $tahun) {
+                $query->whereYear('tanggal', $tahun)
+                    ->whereMonth('tanggal', $bulan_akhir);
+            });
+        } 
+        elseif(request('bulan_awal')) {
+            $bulan_awal = request('bulan_awal');
+            $query->whereMonth('tanggal', $bulan_awal);
+        }
+        elseif(request('bulan_akhir')) {
+            $bulan_akhir = request('bulan_akhir');
+            $query->whereMonth('tanggal', $bulan_akhir);
+        }elseif(request('tahun')) {
+            $tahun = request('tahun');
+            $query->whereYear('tanggal', $tahun);
+        }
+        $pembagians = $query->get(); // 
+        
+
+        $pdf = new Dompdf();
+        $options = new Options();
+        $options->set('isHtml5ParserEnabled', true);
+        $options->set('isRemoteEnabled', true);
+        $pdf->setOptions($options);
+
+        $html = view('pages.pembagian.printlampiran', compact('pembagians'))->render(); // Sesuaikan dengan view Anda
+        $pdf->loadHtml($html);
+        $pdf->setPaper('A4', 'landscape');
+
+        // Render PDF
+        $pdf->render();
+
+        // Output PDF ke browser
+        return $pdf->stream('pembagian-lampiran.pdf');
 
         // Untuk mendownload PDF secara langsung
         // return $pdf->download('document.pdf');

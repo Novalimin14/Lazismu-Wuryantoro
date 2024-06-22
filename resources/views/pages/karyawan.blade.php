@@ -3,6 +3,17 @@
   'class' => 'sidebar-mini',
   'activePage' => 'karyawan',
 ])
+<style>
+    .table .text-right .row {
+    display: flex; 
+    justify-content: flex-end; 
+    gap: 10px; /* Jarak antar tombol */
+  }
+
+  .table .text-right .btn {
+      margin: 0; /* Menghapus margin default jika ada */
+  }
+  </style>
 
 @section('content')
 
@@ -46,7 +57,7 @@
                     <td>{{ $item->email }}</td>
                     
                     <td>{{ $item->created_at }}</td>
-                    <td class="text-left">
+                    <td class="text-right">
                         <div class="row">
                             <a type="button" href="{{ route('karyawan.edit', $item->id) }}" rel="tooltip" class="btn btn-success btn-icon btn-sm " data-original-title="" title="">
                             <i class="now-ui-icons ui-2_settings-90"></i>

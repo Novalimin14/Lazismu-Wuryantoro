@@ -24,7 +24,7 @@ return new class extends Migration
             $table->string('spres');
             $table->string('Skel');
             $table->string('Sktm');
-            $table->integer('sprem');
+            $table->string('sprem');
             $table->string('gaji');
             $table->string('status_2');
             $table->string('keterangan');

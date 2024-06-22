@@ -96,7 +96,7 @@
 
                         <div class="form-group">
                             <label for="sprem">Surat Pernyataan Kesanggupan</label>
-                            <input type="number" class="form-control" id="sprem" name="sprem" value="{{ old('sprem', $data->sprem) }}" required>
+                            <input type="text" class="form-control" id="sprem" name="sprem" value="{{ old('sprem', $data->sprem) }}" required>
                         </div>
 
                         <div class="form-group">

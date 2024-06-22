@@ -68,7 +68,8 @@ class PengeluaranController extends Controller
         }
 
         // Gunakan paginate() untuk mendapatkan objek pagination
-        $data = $query->paginate(5);
+        $perPage = request('perPage', 10);
+        $data = $query->paginate($perPage);
 
         return view('pages.pengeluaran', [
             "data" => $data
@@ -175,7 +176,58 @@ class PengeluaranController extends Controller
     }
     public function exportPdf()
     {
-        $data = Pengeluaran::all(); // Ganti YourModel dengan model Anda
+        $query = Pengeluaran::query();
+
+        if(request('search')) {
+            $query->where('nama_muz', 'like', '%'. request('search') . '%')
+                ->orWhere('keterangan', 'like', '%'. request('search') . '%');
+        }
+
+        if(request('bulan_awal') && request('bulan_akhir') && request('tahun')) {
+            $bulan_awal = request('bulan_awal');
+            $bulan_akhir = request('bulan_akhir');
+            $tahun = request('tahun');
+            $query->where(function ($query) use ($bulan_awal, $bulan_akhir, $tahun) {
+                $query->whereYear('tanggal', $tahun)
+                    ->whereMonth('tanggal', '>=', $bulan_awal)
+                    ->whereMonth('tanggal', '<=', $bulan_akhir);
+            });
+        }elseif(request('bulan_awal') && request('bulan_akhir')) {
+            $bulan_awal = request('bulan_awal');
+            $bulan_akhir = request('bulan_akhir');
+            $query->where(function ($query) use ($bulan_awal, $bulan_akhir) {
+                $query->whereMonth('tanggal', '>=', $bulan_awal)
+                ->whereMonth('tanggal', '<=', $bulan_akhir);
+                    
+            });
+        } 
+        elseif(request('bulan_awal') && request('tahun')) {
+            $bulan_awal = request('bulan_awal');
+            $tahun = request('tahun');
+            $query->where(function ($query) use ($bulan_awal, $tahun) {
+                $query->whereYear('tanggal', $tahun)
+                    ->whereMonth('tanggal', $bulan_awal);
+            });
+        } elseif(request('bulan_akhir') && request('tahun')) {
+            $bulan_akhir = request('bulan_akhir');
+            $tahun = request('tahun');
+            $query->where(function ($query) use ($bulan_akhir, $tahun) {
+                $query->whereYear('tanggal', $tahun)
+                    ->whereMonth('tanggal', $bulan_akhir);
+            });
+        } 
+        elseif(request('bulan_awal')) {
+            $bulan_awal = request('bulan_awal');
+            $query->whereMonth('tanggal', $bulan_awal);
+        }
+        elseif(request('bulan_akhir')) {
+            $bulan_akhir = request('bulan_akhir');
+            $query->whereMonth('tanggal', $bulan_akhir);
+        }elseif(request('tahun')) {
+            $tahun = request('tahun');
+            $query->whereYear('tanggal', $tahun);
+        } // Ganti YourModel dengan model Anda
+        $data = $query->get();
 
         $pdf = new Dompdf();
         $options = new Options();

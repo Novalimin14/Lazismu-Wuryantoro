@@ -45,14 +45,15 @@ Route::post('/logout', function () {
     Auth::logout();
     return redirect('/'); // Atau alamat URL yang sesuai setelah logout
 })->name('logout');
-Route::put('/laporan/{id}', [DashboardLaporanController::class, 'update'])->name('laporan.update');
-Route::resource('laporan', DashboardLaporanController::class);
+// Route::put('/laporan/{id}', [DashboardLaporanController::class, 'update'])->name('laporan.update');
 
-Route::get('/table_mustahik/export-pdf', [DashboardMustahikController::class, 'exportPdf'])->name('table_mustahik.export.pdf');
+
+    Route::get('/table_mustahik/export-pdf', [DashboardMustahikController::class, 'exportPdf'])->name('table_mustahik.export.pdf');
     Route::get('/laporan/export-pdf', [DashboardLaporanController::class, 'exportPdf'])->name('laporan.export.pdf');
     Route::get('/pengeluaran/export-pdf', [PengeluaranController::class, 'exportPdf'])->name('pengeluaran.export.pdf');
     Route::get('/muzzaki/export-pdf', [DashboardMuzzakiController::class, 'exportPdf'])->name('muzzaki.export.pdf');
     Route::get('/pembagian/export-pdf', [PembagianController::class, 'exportPdf'])->name('pembagian.export.pdf');
+    Route::get('/pembagian/export-lampiran', [PembagianController::class, 'exportLampiran'])->name('pembagian.export.lampiran');
 
 // Group routes that need authentication
 Route::middleware(['auth'])->group(function () {
@@ -63,8 +64,11 @@ Route::middleware(['auth'])->group(function () {
 	Route::resource('karyawan', KaryawanController::class);
     Route::resource('pembagian', PembagianController::class);
     Route::resource('table_pembagian', PembagianController::class);
+    Route::resource('laporan', DashboardLaporanController::class);
 
     // Route::post('/table_pembagian/create', PembagianController::class);
+    Route::post('/laporan', [DashboardLaporanController::class, 'store'])->name('laporan.store');
+
 
 
     Route::resource('user', UserController::class, ['except' => ['show']]);

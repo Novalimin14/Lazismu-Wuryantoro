@@ -185,40 +185,42 @@ class KaryawanController extends Controller
     //     ]);
     // }
     public function login(Request $request)
-    {
-        // Validasi input
-        $validator = Validator::make($request->all(), [
-            'email' => 'required|email',
-            'password' => 'required',
-        ]);
+{
+    // Validasi input
+    $validator = Validator::make($request->all(), [
+        'email' => 'required|email',
+        'password' => 'required',
+    ]);
 
-        // Jika validasi gagal, kembalikan respon dengan pesan error
-        if ($validator->fails()) {
-            return response()->json($validator->errors(), 422);
-        }
-
-        // Coba untuk melakukan otentikasi dengan email dan password yang diberikan
-        if (!Auth::guard('karyawan')->attempt($request->only('email', 'password'))) {
-            // Jika otentikasi gagal, kembalikan respon dengan pesan Unauthorized
-            return response()->json(['message' => 'Invalid credentials'], 401);
-        }
-        
-
-        // Jika otentikasi berhasil, dapatkan user yang telah diotentikasi
-        $user = Karyawan::where('email', $request->email)->firstOrFail();
-        
-
-        // Buat token untuk user
-        $token = $user->createToken('auth_token')->plainTextToken;
-
-        // Kembalikan respon dengan pesan login berhasil dan token
-        return response()->json([
-            'nama' => $user->nama,
-            'message' => 'Login success',
-            'access_token' => $token,
-            'token_type' => 'Bearer'
-        ]);
+    // Jika validasi gagal, kembalikan respon dengan pesan error
+    if ($validator->fails()) {
+        return response()->json(['errors' => $validator->errors()], 422);
     }
+
+    // Cari user berdasarkan email
+    $user = Karyawan::where('email', $request->email)->first();
+
+    // Jika email tidak terdaftar, kembalikan respons error
+    if (!$user) {
+        return response()->json(['message' => 'Email tidak terdaftar'], 401);
+    }
+
+    // Periksa apakah password cocok
+    if (!Hash::check($request->password, $user->password)) {
+        return response()->json(['message' => 'Password salah'], 401);
+    }
+
+    // Jika otentikasi berhasil, buat token untuk user
+    $token = $user->createToken('auth_token')->plainTextToken;
+
+    // Kembalikan respon dengan pesan login berhasil dan token
+    return response()->json([
+        'nama' => $user->nama, // Sesuaikan dengan atribut nama dari model Karyawan Anda
+        'message' => 'Login success',
+        'access_token' => $token,
+        'token_type' => 'Bearer'
+    ]);
+}
 
     // public function __construct()
     // {

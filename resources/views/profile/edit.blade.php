@@ -19,7 +19,7 @@
           <!-- BAGIAN UPDATE -->
           <div class="card-body">
             <form action="{{ route('profile.update') }}" method="post" autocomplete="off">
-            
+            @csrf
             @method('POST')
             @include('alerts.success', ['key' => 'update_status'])
               <div class="form-group col">

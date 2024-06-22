@@ -3,6 +3,17 @@
     'class' => 'sidebar-mini',
     'activePage' => 'pembagian',
   ])
+  <style>
+    .table .text-right .row {
+    display: flex; 
+    justify-content: flex-end; 
+    gap: 10px; /* Jarak antar tombol */
+  }
+
+  .table .text-right .btn {
+      margin: 0; /* Menghapus margin default jika ada */
+  }
+  </style>
 
 @section('content')
   <div class="panel-header panel-header-sm">
@@ -16,7 +27,8 @@
           </div>
           <div class="card-body">
           <a href="/pembagian/create" class="btn btn-primary">Tambah Data</a>
-          <a href="/pembagian/export-pdf" class="btn btn-primary">export Data</a>
+          <a href="/pembagian/export-pdf?{{ http_build_query(request()->except('page')) }}" class="btn btn-primary">export Data</a>
+          <a href="/pembagian/export-lampiran?{{ http_build_query(request()->except('page')) }}" class="btn btn-primary">export Lampiran</a>
           <form action="" method="GET">
               <div class="form-group">
                   <label for="search">Search:</label>
@@ -52,7 +64,6 @@
                       </select>
                   </div>
               </div>
-              <button type="submit" class="btn btn-primary mt-3">Filter</button>
               <div class="form">
                 <label for="perPage">Show:</label>
                 <select name="perPage" id="perPage" class="form-control">
@@ -62,7 +73,10 @@
                     <option value="100" {{ request('perPage') == 100 ? 'selected' : '' }}>100</option>
                 </select>
             </div>
+              <button type="submit" class="btn btn-primary mt-3">Filter</button>
+              
           </form>
+          
           @if(session('success'))
                     <div class="alert alert-success">
                         {{ session('success') }}

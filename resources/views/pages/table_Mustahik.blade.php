@@ -3,6 +3,17 @@
     'class' => 'sidebar-mini',
     'activePage' => 'table_mustahik',
   ])
+  <style>
+    .table .text-right .row {
+    display: flex; 
+    justify-content: flex-end; 
+    gap: 10px; /* Jarak antar tombol */
+  }
+
+  .table .text-right .btn {
+      margin: 0; /* Menghapus margin default jika ada */
+  }
+  </style>
 
 @section('content')
   <div class="panel-header panel-header-sm">
@@ -12,7 +23,7 @@
       <div class="col-md-12">
         <div class="card">
           <div class="card-header">
-            <h4 class="card-title"> DATA Mustahik</h4>
+            <h4 class="card-title"> Data Mustahik</h4>
           </div>
           <div class="card-body">
             
@@ -24,40 +35,8 @@
                   <input type="text" name="search" id="search" class="form-control" placeholder="Search..." value="{{ request('search') }}">
               </div>
               <!--  -->
-              <div class="form-row">
-                  
-                  <div class="col">
-                    <label for="bulan_awal">Bulan Awal:</label>
-                    <select name="bulan_awal" id="bulan_awal" class="form-control">
-                        <option value="">Pilih Bulan</option>
-                        @for ($i = 1; $i <= 12; $i++)
-                            <option value="{{ $i }}" @if(request('bulan_awal') == $i) selected @endif>{{ sprintf("%02d", $i) }}</option>
-                        @endfor
-                    </select>
-                </div>
-
-                <div class="col">
-                    <label for="bulan_akhir">Bulan Akhir:</label>
-                    <select name="bulan_akhir" id="bulan_akhir" class="form-control">
-                        <option value="">Pilih Bulan</option>
-                        @for ($i = 1; $i <= 12; $i++)
-                            <option value="{{ $i }}" @if(request('bulan_akhir') == $i) selected @endif>{{ sprintf("%02d", $i) }}</option>
-                        @endfor
-                    </select>
-                </div>
-                  <div class="col">
-                      <label for="tahun">Tahun:</label>
-                      <select name="tahun" id="tahun" class="form-control">
-                          <option value="">Pilih Tahun</option>
-                          @for ($i = date('Y'); $i >= 2010; $i--)
-                              <option value="{{ $i }}" @if(request('tahun') == $i) selected @endif>{{ $i }}</option>
-                          @endfor
-                      </select>
-                  </div>
-              </div>
-              <button type="submit" class="btn btn-primary mt-3">Filter</button>
-            </form>
-            <div class="form-group">
+              
+              <div class="form-group">
                 <label for="perPage">Show:</label>
                 <select name="perPage" id="perPage" class="form-control">
                     <option value="10" {{ request('perPage') == 10 ? 'selected' : '' }}>10</option>
@@ -66,6 +45,9 @@
                     <option value="100" {{ request('perPage') == 100 ? 'selected' : '' }}>100</option>
                 </select>
             </div>
+              <button type="submit" class="btn btn-primary mt-3">Filter</button>
+            </form>
+            
 
             <div class="table-responsive">
               
@@ -86,8 +68,8 @@
                       <th>Nomor KTP</th>
                       <th>Jenis Kelamin</th>
                       <th>Pekerjaan</th>
-                      <th>Jenis Muzzaki</th>
-                      <th>Tipe Muzzaki</th>
+                      <th>Jenis Mustahik</th>
+                      <th>Tipe Mustahik</th>
                       <th class="text-right">Aksi</th>
                     </tr>
                   </thead>

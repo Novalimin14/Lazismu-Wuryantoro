@@ -12,7 +12,7 @@
       <div class="col-md-12">
         <div class="card">
           <div class="card-header">
-            <h4 class="card-title"> DATA Mustahik</h4>
+            <h4 class="card-title"> Data Mustahik</h4>
           </div>
           <div class="card-body">
                     @if ($errors->any())
@@ -92,7 +92,7 @@
 
                         <div class="form-group">
                             <label for="sprem">Surat Pernyataan Kesanggupan</label>
-                            <input type="number" class="form-control" id="sprem" name="sprem" value="{{ old('sprem') }}" required>
+                            <input type="text" class="form-control" id="sprem" name="sprem" value="{{ old('sprem') }}" required>
                         </div>
 
                         <div class="form-group">

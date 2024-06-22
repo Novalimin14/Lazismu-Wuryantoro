@@ -69,47 +69,62 @@
         }
     </style>
 </head>
+@foreach($pembagians as $pembagian)
 <body>
     <div class="print-container">
-        <div class="header-container">
-            <div>
-                <h2>LEMBAGA AMIL ZAKAT INFAQ DAN SHODAQOH (LAZIS)</h2>
-                <h2>DAERAH WONOGIRI KANTOR LAYANAN KECAMATAN WURYANTORO</h2>
-            </div>
-        </div>
-        <h3>Data Tasharuf</h3>
+        <h3>Lampiran Tasharuf {{ $loop->iteration }}</h3>
+        <h4> Tanggal : {{ $pembagian->tanggal }}</h4>
         <table>
             <thead>
                 <tr>
                     <th>No</th>
-                    <th>Tasharuf</th>
-                    <th>Jumlah Dana</th>
+                    <th>Nama Mustahik</th>
+                    <th>Alamat</th>
+                    <th>Nomor KTP</th>
+                    <th>Jenis Kelamin</th>
+                    <th>Pekerjaan</th>
+                    <th>Jenis Mustahik</th>
+                    <th>Tipe Mustahik</th>
+                    <th>Kartu Tanda Mahasiswa</th>
+                    <th>Surat Prestasi</th>
+                    <th>Surat Kelurahan (Usaha)</th>
+                    <th>Surat Keterangan Tidak Mampu</th>
+                    <th>Surat Pernyataan Kesanggupan</th>
+                    <th>Gaji</th>
+                    <th>Status (Keluarga) Mustahik</th>
                     <th>Keterangan</th>
-                    <th>Tanggal</th>
-                    <th>Mustahik</th>
-                    
                     
                     
                 </tr>
             </thead>
             <tbody>
-                @foreach($pembagian as $item)
+            
+                @foreach($pembagian->mustahiks as $item)
                 <tr>
                     <td>{{ $loop->iteration }}</td>
-                    <td>{{ $item->pembagian }}</td>
-                    <td>{{ $item->jml_dana }}</td>
+                    <td>{{ $item->nama_mus }}</td>
+                    <td>{{ $item->alamat }}</td>
+                    <td>{{ $item->ktp }}</td>
+                    <td>{{ $item->jkl }}</td>
+                    <td>{{ $item->pekerjaan }}</td>
+                    <td>{{ $item->jns_mus }}</td>
+                    <td>{{ $item->tipe_mus }}</td>
+                    <td>{{ $item->KTM }}</td>
+                    <td>{{ $item->spres }}</td>
+                    <td>{{ $item->Skel }}</td>
+                    <td>{{ $item->Sktm }}</td>
+                    <td>{{ $item->sprem }}</td>
+                    <td>{{ $item->gaji }}</td>
+                    <td>{{ $item->status_2 }}</td>
                     <td>{{ $item->keterangan }}</td>
-                    <td>{{ $item->tanggal }}</td>
-                    <td><ul>
-                        @foreach($item->mustahiks as $mustahik)
-                        <li>{{ $mustahik->nama_mus }}</li>
-                        @endforeach
-                    </ul></td>
-     
+                    
+                    
                 </tr>
                 @endforeach
+                
             </tbody>
         </table>
     </div>
 </body>
+@endforeach
 </html>

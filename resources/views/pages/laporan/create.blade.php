@@ -12,7 +12,7 @@
       <div class="col-md-12">
         <div class="card">
           <div class="card-header">
-            <h4 class="card-title"> DATA Laporan</h4>
+            <h4 class="card-title"> Data Laporan</h4>
           </div>
           <div class="card-body">
                     @if ($errors->any())
@@ -25,7 +25,7 @@
                     </div>
                     @endif
 
-                    <form method="POST" action="{{ route('laporan.store') }}">
+                    <form action="{{ route('laporan.store') }}" method="POST">
                         @csrf
                         @method('POST')
 
@@ -65,6 +65,7 @@
                         <button type="submit" class="btn btn-primary">Simpan</button>
                     </form>
                 </div>
+                
         </div>
       </div>
       

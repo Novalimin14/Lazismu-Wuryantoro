@@ -3,6 +3,17 @@
     'class' => 'sidebar-mini',
     'activePage' => 'pengeluaran',
   ])
+  <style>
+    .table .text-right .row {
+    display: flex; 
+    justify-content: flex-end; 
+    gap: 10px; /* Jarak antar tombol */
+  }
+
+  .table .text-right .btn {
+      margin: 0; /* Menghapus margin default jika ada */
+  }
+  </style>
 
 @section('content')
   <div class="panel-header panel-header-sm">
@@ -12,11 +23,11 @@
       <div class="col-md-12">
         <div class="card">
           <div class="card-header">
-            <h4 class="card-title"> DATA pengeluaran</h4>
+            <h4 class="card-title"> Data pengeluaran</h4>
           </div>
           <div class="card-body">
           <a href="/pengeluaran/create" class="btn btn-primary">Tambah Data</a>
-          <a href="/pengeluaran/export-pdf" class="btn btn-primary">export Data</a>
+          <a href="/pengeluaran/export-pdf?{{ http_build_query(request()->except('page')) }}" class="btn btn-primary">export Data</a>
           <form action="" method="GET">
               <div class="form-group">
                   <label for="search">Search:</label>
@@ -52,8 +63,18 @@
                       </select>
                   </div>
               </div>
+              <div class="form">
+                <label for="perPage">Show:</label>
+                <select name="perPage" id="perPage" class="form-control">
+                    <option value="10" {{ request('perPage') == 10 ? 'selected' : '' }}>10</option>
+                    <option value="25" {{ request('perPage') == 25 ? 'selected' : '' }}>25</option>
+                    <option value="50" {{ request('perPage') == 50 ? 'selected' : '' }}>50</option>
+                    <option value="100" {{ request('perPage') == 100 ? 'selected' : '' }}>100</option>
+                </select>
+            </div>
               <button type="submit" class="btn btn-primary mt-3">Filter</button>
           </form>
+          
 
             <div class="table-responsive">
               <table class="table">

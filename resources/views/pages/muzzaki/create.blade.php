@@ -12,7 +12,7 @@
       <div class="col-md-12">
         <div class="card">
           <div class="card-header">
-            <h4 class="card-title"> DATA MUZZAKI</h4>
+            <h4 class="card-title"> Data Muzzaki</h4>
           </div>
           <div class="card-body">
                     @if ($errors->any())

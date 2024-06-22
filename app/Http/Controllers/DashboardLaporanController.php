@@ -136,7 +136,7 @@ class DashboardLaporanController extends Controller
     public function store(Request $request)
     {
         //
-        dd($request);
+        
         $validatedData = $request->validate([
             // 'muzzaki_id' => 'required|string|max:255',
             'kwitansi' => 'required|string|max:255',
@@ -211,7 +211,7 @@ public function update(Request $request, Laporan $laporan)
         'keterangan' => 'required|string|max:255',
         'tanggal' => 'required|date'
     ]);
-    dd($request);
+    
     $muzzaki = Muzzaki::where('nama', $request->nama_muz)->first();
         if ($muzzaki) {
             $validateData = array_merge($validateData, ['muzzaki_id' => $muzzaki->id]);
