@@ -93,6 +93,39 @@
           </div>
         </div>
       </div>
+      <div class="col-lg-4 " >
+        <div class="card text-white card-chart bg-info">
+          <div class="card-header">
+            <h4 class="card-title">Penyaluran Beras</h4>  
+          </div>
+          
+          <div class="card-body">
+          <h6 class="card-title color-white"> {{ $penyaluranberas }} Kg</h5>
+          </div>
+          <div class="card-footer ">
+            <div class="stats">
+              <i class="now-ui-icons arrows-1_refresh-69"></i> Just Updated
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-4 " >
+        <div class="card text-white card-chart bg-warning">
+          <div class="card-header">
+            <h4 class="card-title">Jumlah Beras Saat Ini</h4>  
+          </div>
+          
+          <div class="card-body">
+          <h6 class="card-title color-white"> {{ $totalberas }} Kg</h5>
+          </div>
+          <div class="card-footer ">
+            <div class="stats">
+              <i class="now-ui-icons arrows-1_refresh-69"></i> Just Updated
+            </div>
+          </div>
+        </div>
+      </div>
       
     </div>
     

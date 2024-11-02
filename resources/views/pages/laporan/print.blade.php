@@ -12,13 +12,16 @@
         }
         .header-container {
             display: flex;
-            align-items: center;
+            align-items: flex-start;
             justify-content: center;
             padding: 20px 0;
         }
-        .header-container img {
-            width: 100px; /* Sesuaikan ukuran gambar sesuai kebutuhan */
-            margin-right: 20px;
+        .col {
+            flex-direction: column;
+        }
+        .col img {
+            width: 80px; /* Sesuaikan ukuran gambar */
+            margin-right: 10px; /* Sesuaikan margin */
         }
         .header-container h2 {
             margin: 0;
@@ -42,40 +45,61 @@
     </style>
 </head>
 <body>
-    <div class="header-container">
-        <!-- <img src="{{ asset('assets/img/apple-icon.png') }}" alt="Logo Lazismu"> -->
+    <div class="col">
+          
+    <div class="">
         <div>
-            <h2>LEMBAGA AMIL ZAKAT INFAQ DAN SHODAQOH (LAZIS)</h2>
-            <h2>DAERAH WONOGIRI KANTOR LAYANAN KECAMATAN WURYANTORO</h2>
+            <h4>LEMBAGA AMIL ZAKAT INFAQ DAN SHODAQOH (LAZIS)</h4>
+            <h4>DAERAH WONOGIRI KANTOR LAYANAN KECAMATAN WURYANTORO</h4>
         </div>
         
     </div>
+        
+
+    </div>
+    
     <h3>Data Laporan</h3>
     
     <table>
         <thead>
             <tr>
                 <th>No</th>
-                <th>ID</th>
                 <th>Nama</th>
-                <th>Jumlah</th>
+                <th>Jumlah Dana</th>
+                <th>Jumlah Beras</th>
                 <th>Keterangan</th>
                 <th>Tanggal</th>
             </tr>
         </thead>
         <tbody>
-            <!-- Looping data menggunakan Blade directives atau sesuai dengan framework yang Anda gunakan -->
+            @php
+                $totalDana = 0;
+                $totalBeras = 0;
+            @endphp
+
             @foreach ($data as $item)
+            @php
+                $totalDana += $item->jml_dana;
+                $totalBeras += $item->jml_beras;
+            @endphp
             <tr>
                 <td>{{ $loop->iteration }}</td>
-                <td>{{ $item->id_muz }}</td>
                 <td>{{ $item->nama_muz }}</td>
-                <td>{{ $item->jml_dana }}</td>
+                <td>{{ $item->jml_dana ? 'Rp. ' . number_format($item->jml_dana, 0, ',', '.') : '' }}</td>
+                <td>{{ $item->jml_beras ? $item->jml_beras . ' kg' : '' }}</td>
                 <td>{{ $item->keterangan }}</td>
                 <td>{{ $item->tanggal }}</td>
             </tr>
             @endforeach
         </tbody>
+        <tfoot>
+        <tr>
+            <td colspan="2">Total</td>
+            <td>{{ 'Rp. ' . number_format($totalDana, 0, ',', '.') }}</td>
+            <td>{{ $totalBeras . ' kg' }}</td>
+            <td colspan="2"></td>
+        </tr>           
+        </tfoot> 
     </table>
 </body>
 </html>

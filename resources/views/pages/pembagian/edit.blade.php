@@ -14,6 +14,21 @@
                 <div class="card-header">
                     <h4 class="card-title">Edit Data Pembagian</h4>
                 </div>
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+
+                @if (session('error'))
+                    <div class="alert alert-danger">
+                        {{ session('error') }}
+                    </div>
+                @endif
                 <div class="card-body">
                     <form action="{{ route('table_pembagian.update', $pembagian->id) }}" method="POST">
                         @csrf
@@ -24,7 +39,11 @@
                         </div>
                         <div class="form-group">
                             <label for="jml_dana">Jumlah Dana</label>
-                            <input type="number" name="jml_dana" class="form-control" value="{{ $pembagian->jml_dana }}" required>
+                            <input type="number" name="jml_dana" class="form-control" value="{{ $pembagian->jml_dana }}" >
+                        </div>
+                        <div class="form-group">
+                            <label for="jml_beras">Jumlah Beras</label>
+                            <input type="number" name="jml_beras" class="form-control" step="0.01" value="{{ $pembagian->jml_beras }}" >
                         </div>
                         <div class="form-group">
                             <label for="keterangan">Keterangan</label>
@@ -36,12 +55,19 @@
                         </div>
                         <div class="form-group">
                             <label for="mustahik">Mustahik</label>
-                            <select name="mustahik[]" class="form-control" multiple>
+                            <div class="checkbox-list">
                                 @foreach($mustahiks as $mustahik)
-                                    <option value="{{ $mustahik->id }}" @if(in_array($mustahik->id, $pembagian->mustahiks->pluck('id')->toArray())) selected @endif>{{ $mustahik->nama_mus }}</option>
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" name="mustahik[]" value="{{ $mustahik->id }}"
+                                                @if($pembagian->mustahiks->contains($mustahik->id)) checked @endif>
+                                            {{ $mustahik->nama_mus }}
+                                        </label>
+                                    </div>
                                 @endforeach
-                            </select>
+                            </div>
                         </div>
+
                         <button type="submit" class="btn btn-primary">Simpan</button>
                     </form>
                 </div>

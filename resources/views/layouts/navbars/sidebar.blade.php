@@ -70,7 +70,7 @@
       <li class = " @if ($activePage == 'pembagian') active @endif">
         <a href="{{ route('page.index','pembagian') }}">
           <i class="now-ui-icons files_paper"></i>
-          <p>{{ __('pembagian') }}</p>
+          <p>{{ __('penyaluran') }}</p>
         </a>
       </li>
       

@@ -95,10 +95,13 @@
                     Kwitansi
                   </th>
                 <th>
-                    Nama
+                    Nama Muzzaki
                   </th>
                   <th>
-                    Jumlah
+                    Jumlah Dana
+                  </th>
+                  <th>
+                    Jumlah Beras
                   </th>
                   <th>
                     Keterangan
@@ -130,9 +133,8 @@
                       <td>
                       {{ $item->nama_muz }}
                       </td>
-                      <td>
-                      {{ $item->jml_dana }}
-                      </td>
+                      <td>{{ $item->jml_dana ? 'Rp. ' . number_format($item->jml_dana, 0, ',', '.') : '' }}</td>
+                      <td>{{ $item->jml_beras ? $item->jml_beras . ' kg' : '' }}</td>
                       <td>
                       {{ $item->keterangan }}
                       </td>

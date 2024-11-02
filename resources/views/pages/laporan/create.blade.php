@@ -49,7 +49,11 @@
 
                         <div class="form-group">
                             <label for="jml_dana">Jumlah Dana</label>
-                            <input type="number" class="form-control" id="jml_dana" name="jml_dana" value="{{ old('jml_dana') }}" required>
+                            <input type="number" class="form-control" id="jml_dana" name="jml_dana" value="{{ old('jml_dana') }}" >
+                        </div>
+                        <div class="form-group">
+                            <label for="jml_beras">Jumlah Beras</label>
+                            <input type="number" step="0.01" class="form-control" id="jml_beras" name="jml_beras" value="{{ old('jml_beras') }}" >
                         </div>
 
                         <div class="form-group">

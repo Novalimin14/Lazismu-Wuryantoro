@@ -84,6 +84,7 @@
                     <th>No</th>
                     <th>Tasharuf</th>
                     <th>Jumlah Dana</th>
+                    <th>Jumlah Beras</th>
                     <th>Keterangan</th>
                     <th>Tanggal</th>
                     <th>Mustahik</th>
@@ -93,11 +94,20 @@
                 </tr>
             </thead>
             <tbody>
+                @php
+                    $totalDana = 0;
+                    $totalBeras = 0;
+                @endphp
                 @foreach($pembagian as $item)
+                @php
+                $totalDana += $item->jml_dana;
+                $totalBeras += $item->jml_beras;
+                @endphp
                 <tr>
                     <td>{{ $loop->iteration }}</td>
                     <td>{{ $item->pembagian }}</td>
-                    <td>{{ $item->jml_dana }}</td>
+                    <td>{{ $item->jml_dana ? 'Rp. ' . number_format($item->jml_dana, 0, ',', '.') : '' }}</td>
+                    <td>{{ $item->jml_beras ? $item->jml_beras . ' kg' : '' }}</td>
                     <td>{{ $item->keterangan }}</td>
                     <td>{{ $item->tanggal }}</td>
                     <td><ul>
@@ -109,6 +119,12 @@
                 </tr>
                 @endforeach
             </tbody>
+            <tr>
+            <td colspan="2">Total</td>
+            <td>{{ 'Rp. ' . number_format($totalDana, 0, ',', '.') }}</td>
+            <td>{{ $totalBeras . ' kg' }}</td>
+            <td colspan="3"></td>
+        </tr> 
         </table>
     </div>
 </body>

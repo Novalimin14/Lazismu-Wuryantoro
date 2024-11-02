@@ -26,12 +26,13 @@ class TableMustahik extends Model
         'gaji',
         'status_2',
         'keterangan',
-        'tanggal',
+        // 'tanggal',
         'link_maps',
     ];
     public function pembagians()
     {
-        return $this->belongsToMany(Pembagian::class, 'pembagian_mustahik');
+        // return $this->belongsToMany(Pembagian::class, 'pembagian_mustahik');
+        return $this->belongsToMany(Pembagian::class, 'pembagian_mustahik', 'table_mustahik_id', 'pembagian_id');
     }
     use HasFactory;
 }

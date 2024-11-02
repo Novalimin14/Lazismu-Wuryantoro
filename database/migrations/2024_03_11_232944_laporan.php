@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('kwitansi');
             $table->string('nama_muz');
             $table->integer('jml_dana');
+            $table->integer('jml_beras');
             $table->string('keterangan');
             $table->date('tanggal');
             $table->timestamps();

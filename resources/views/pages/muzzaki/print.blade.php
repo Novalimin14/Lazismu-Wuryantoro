@@ -11,11 +11,12 @@
             padding: 0;
         }
         .header-container {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 20px 0;
-        }
+            display: flex; /* Enable flexbox layout */
+            align-items: center; /* Align items vertically */
+            justify-content: space-between; /* Distribute space between items horizontally */
+            padding: 20px 0; /* Add some padding for spacing */
+            }
+
         .header-container img {
             width: 100px; /* Sesuaikan ukuran gambar sesuai kebutuhan */
             margin-right: 20px;
@@ -29,8 +30,6 @@
             margin-top: 20px;
         }
         th, td {
-            border: 1px solid #dddddd;
-            text-align: left;
             padding: 8px;
         }
         th {
@@ -43,62 +42,32 @@
 </head>
 <body>
     <div class="header-container">
-        <!-- <img src="{{ asset('assets/img/apple-icon.png') }}" alt="Logo Lazismu"> -->
-        <div>
+        <img src="{{ $image }}" alt="Logo Lazismu">
+        <div class="header-text">
             <h2>LEMBAGA AMIL ZAKAT INFAQ DAN SHODAQOH (LAZIS)</h2>
             <h2>DAERAH WONOGIRI KANTOR LAYANAN KECAMATAN WURYANTORO</h2>
         </div>
-        
     </div>
     <h3>Data Muzzaki</h3>
     <table>
-        <thead>
-            <tr>
-            <th>No
-                  </th>  
-                  <th>
-                    Nama
-                  </th>
-                  <th>
-                    Alamat
-                  </th>
-                  <th>
-                    KTP
-                  </th>
-                  <th>
-                    Jenis Kelamin
-                  </th>
-                  <th>
-                    Pekerjaan
-                  </th>
-                  
-            </tr>
-        </thead>
-        <tbody>
-            @foreach($data as $item)
-            <tr>
-            <td>
-                    {{ $loop->iteration }}
-                    </td>
-                    <td>
-                    {{ $item->nama }}
-                    </td>
-                    <td>
-                    {{ $item->alamat }}
-                    </td>
-                    <td>
-                    {{ $item->ktp }}
-                    </td>
-                    <td>
-                    {{ $item->jkl }}
-                    </td>
-                    <td>
-                    {{ $item->pekerjaan }}
-                    </td>
-                    
-            </tr>
-            @endforeach
-        </tbody>
+        <tr>
+            <th>No</th>
+            <th>Nama</th>
+            <th>Alamat</th>
+            <th>KTP</th>
+            <th>Jenis Kelamin</th>
+            <th>Pekerjaan</th>
+        </tr>
+        @foreach($data as $item)
+        <tr>
+            <td>{{ $loop->iteration }}</td>
+            <td>{{ $item->nama }}</td>
+            <td>{{ $item->alamat }}</td>
+            <td>{{ $item->ktp }}</td>
+            <td>{{ $item->jkl }}</td>
+            <td>{{ $item->pekerjaan }}</td>
+        </tr>
+        @endforeach
     </table>
 </body>
 </html>

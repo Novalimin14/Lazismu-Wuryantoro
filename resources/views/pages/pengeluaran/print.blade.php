@@ -62,16 +62,30 @@
             </tr>
         </thead>
         <tbody>
+            @php
+                $totalDana = 0;
+                $totalBeras = 0;
+            @endphp
             @foreach ($data as $item) 
+            @php
+                $totalDana += $item->jml_dana;
+                $totalBeras += $item->jml_beras;
+            @endphp
             <tr>
                 <td>{{ $loop->iteration }}</td>
                 <td>{{ $item->pengeluaran }}</td>
-                <td>{{ $item->jml_dana }}</td>
+                <td>{{ $item->jml_dana ? 'Rp. ' . number_format($item->jml_dana, 0, ',', '.') : '' }}</td>
                 <td>{{ $item->keterangan }}</td>
                 <td>{{ $item->tanggal }}</td>
             </tr>
             @endforeach
         </tbody>
+        <tr>
+            <td colspan="2">Total</td>
+            <td>{{ 'Rp. ' . number_format($totalDana, 0, ',', '.') }}</td>
+            
+            <td colspan="2"></td>
+        </tr> 
     </table>
 </body>
 </html>

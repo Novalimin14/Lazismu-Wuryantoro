@@ -14,7 +14,8 @@ return new class extends Migration
         Schema::create('pembagians', function (Blueprint $table) {
             $table->id();
             $table->string('pembagian');
-            $table->integer('jml_dana');
+            $table->integer('jml_dana')->nullable();
+            $table->float('jml_beras')->nullable();
             $table->string('keterangan');
             $table->date('tanggal');
             $table->timestamps();

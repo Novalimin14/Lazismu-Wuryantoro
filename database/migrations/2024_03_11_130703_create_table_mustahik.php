@@ -28,7 +28,7 @@ return new class extends Migration
             $table->string('gaji');
             $table->string('status_2');
             $table->string('keterangan');
-            $table->date('tanggal');
+            // $table->date('tanggal');
             $table->string('link_maps')->nullable();
             $table->timestamps();
         });

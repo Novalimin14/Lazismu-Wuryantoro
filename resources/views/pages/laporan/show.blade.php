@@ -29,6 +29,10 @@
                 <label for="jml_dana">Jumlah Dana</label>
                 <input type="number" class="form-control" id="jml_dana" name="jml_dana" value="{{ $data->jml_dana }}" readonly>
             </div>
+            <div class="form-group">
+                <label for="jml_beras">Jumlah Beras</label>
+                <input type="number" class="form-control" id="jml_beras" name="jml_beras" value="{{ $data->jml_beras }}" readonly>
+            </div>
 
             <div class="form-group">
                 <label for="keterangan">Keterangan</label>

@@ -19,6 +19,7 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')->hourly();
         Log::info('Running scheduled task 1');
+        
         $schedule->call(function () {
             Log::info('Running scheduled task'); // Log untuk memastikan task berjalan
     

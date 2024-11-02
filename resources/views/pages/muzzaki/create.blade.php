@@ -40,8 +40,8 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="ktp">KTP</label>
-                            <input type="text" class="form-control" id="ktp" name="ktp" value="{{ old('ktp') }}" required>
+                            <label for="ktp">Nomor KTP</label>
+                            <input type="number" class="form-control" id="ktp" name="ktp" value="{{ old('ktp') }}" required>
                         </div>
 
                         <div class="form-group">

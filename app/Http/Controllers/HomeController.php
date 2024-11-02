@@ -32,6 +32,8 @@ class HomeController extends Controller
         $laporan = Laporan::sum('jml_dana');
         $pembagian = Pembagian::sum('jml_dana');
         $mustahik = TableMustahik::count();
+        $penyaluranberas = Pembagian::sum('jml_beras');
+        $totalberas = Laporan::sum('jml_beras');
         $pengeluaran = Pengeluaran::sum('jml_dana') + $pembagian;
         $total = $laporan - $pengeluaran;
 
@@ -50,6 +52,8 @@ class HomeController extends Controller
             'total' => $total,
             'muzzaki' => $muzzaki,
             'mustahik' => $mustahik,
+            'penyaluranberas' => $penyaluranberas,
+            'totalberas' => $totalberas,
             'monthlyIncome' => $monthlyIncome,
         ]);
     }

@@ -39,17 +39,57 @@
         h2 {
             text-align: center;
         }
+        .kop-surat {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 80%;
+    background-color: #ffffff;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.image-container {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+}
+
+.image-container img {
+    max-width: 100px;
+    height: auto;
+}
+
+.text-container {
+    flex: 2;
+    text-align: center;
+}
+
+.text-container h1 {
+    margin: 0;
+    font-size: 24px;
+}
+
+.text-container p {
+    margin: 5px 0;
+    font-size: 14px;
+}
     </style>
 </head>
 <body>
     <div class="header-container">
-        <img href="{{ asset('Lazismu.png') }}" alt="Logo Lazismu">
+        <img src="{{ asset('Lazismu.png') }}" alt="Logo Lazismu">
         <div>
+            
+      
             <h2>LEMBAGA AMIL ZAKAT INFAQ DAN SHODAQOH (LAZIS)</h2>
             <h2>DAERAH WONOGIRI KANTOR LAYANAN KECAMATAN WURYANTORO</h2>
         </div>
         <img src="{{ public_path('assets/img/muhammadiyah.png') }}" alt="Logo Lazismu">
+        
     </div>
+    
+    <hr>
     
     <table>
         <thead>

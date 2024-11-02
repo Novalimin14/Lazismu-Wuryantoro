@@ -1,5 +1,5 @@
 @extends('layouts.app', [
-    'namePage' => 'Tambah Pembagian',
+    'namePage' => 'Tambah Penyaluran',
     'class' => 'sidebar-mini',
     'activePage' => 'pembagian',
 ])
@@ -29,7 +29,7 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title">Tambah Data Pembagian</h4>
+                    <h4 class="card-title">Tambah Data Penyaluran</h4>
                 </div>
                 <div class="card-body">
                     <form action="{{ route('table_pembagian.store') }}" method="POST">
@@ -40,7 +40,11 @@
                         </div>
                         <div class="form-group">
                             <label for="jml_dana">Jumlah Dana</label>
-                            <input type="number" name="jml_dana" class="form-control" required>
+                            <input type="number" name="jml_dana" class="form-control" >
+                        </div>
+                        <div class="form-group">
+                            <label for="jml_beras">Jumlah Beras(Kg)</label>
+                            <input type="number" name="jml_beras" class="form-control" step="0.01" >
                         </div>
                         <div class="form-group">
                             <label for="keterangan">Keterangan</label>

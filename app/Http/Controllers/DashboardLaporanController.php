@@ -105,6 +105,8 @@ class DashboardLaporanController extends Controller
         $muzzaki = Muzzaki::count();
         $pemasukan = Laporan::sum('jml_dana');
         $pembagian = Pembagian::sum('jml_dana');
+        $penyaluranberas = Pembagian::sum('jml_beras');
+        $totalberas = Laporan::sum('jml_beras');
         $mustahik = TableMustahik::count();
         $pengeluaran = Pengeluaran::sum('jml_dana') + $pembagian;
         $total = $pemasukan - $pengeluaran ;
@@ -115,6 +117,8 @@ class DashboardLaporanController extends Controller
             'Total' => $total,
             'Jumlah-Muzzaki' => $muzzaki,
             'Jumlah-Mustahik' => $mustahik,
+            'Penyaluran-beras' => $penyaluranberas,
+            'Total-beras' => $totalberas,
         ]);
         
     }
@@ -141,7 +145,8 @@ class DashboardLaporanController extends Controller
             // 'muzzaki_id' => 'required|string|max:255',
             'kwitansi' => 'required|string|max:255',
             'nama_muz' => 'required|string|max:255',
-            'jml_dana' => 'required|integer',
+            'jml_dana' => 'nullable|integer',
+            'jml_beras' => 'nullable|numeric',
             'keterangan' => 'required|string|max:255',
             'tanggal' => 'required|date',
         ]);
@@ -157,13 +162,25 @@ class DashboardLaporanController extends Controller
         } else {
             // Handle ketika nama tidak ditemukan, misalnya dengan memberikan nilai default atau memberikan pesan kesalahan
             // Contoh:
-            $laporan->muzzaki_id = null;
+            $laporan->nama_muz = $request->nama_muz;
+            // $laporan->muzzaki_id = null;
             // atau
-            return response()->json(['error' => 'Nama muzzaki tidak ditemukan'], 404);
+            // return response()->json(['error' => 'Nama muzzaki tidak ditemukan'], 404);
         }
         $laporan->kwitansi = $request->kwitansi;
         // $laporan->nama_muz = $request->nama_muz;
-        $laporan->jml_dana = $request->jml_dana;
+        if($request->jml_dana){
+            $laporan->jml_dana = $request->jml_dana;
+        }else{
+            $laporan->jml_dana = null;
+        }
+        if($request->jml_beras){
+            $laporan->jml_beras = $request->jml_beras;
+        }else{
+            $laporan->jml_beras = null;
+        }
+        // $laporan->jml_dana = $request->jml_dana;
+        // $laporan->jml_beras = $request->jml_beras;
         $laporan->keterangan = $request->keterangan;
         $laporan->tanggal = $request->tanggal;
 
@@ -207,7 +224,8 @@ public function update(Request $request, Laporan $laporan)
     $validateData = $request->validate([
         'kwitansi' => 'required|string|max:255',
         'nama_muz' => 'required|string|max:255',
-        'jml_dana' => 'required|integer',
+        'jml_dana' => 'nullable|integer',
+        'jml_beras' => 'nullable|numeric',
         'keterangan' => 'required|string|max:255',
         'tanggal' => 'required|date'
     ]);
@@ -232,7 +250,8 @@ public function updateApi(Request $request, $id)
         $validator = Validator::make($request->all(), [
             'kwitansi' => 'required|string|max:255',
             'nama_muz' => 'required|string|max:255',
-            'jml_dana' => 'required|integer',
+            'jml_dana' => 'nullable|integer',
+            'jml_beras' => 'nullable|numeric',
             'keterangan' => 'required|string|max:255',
             'tanggal' => 'required|date'
         ]);
@@ -333,6 +352,7 @@ public function destroy(Laporan $laporan)
         
         $pdf = new Dompdf();
         $options = new Options();
+        $options->set('enabled', true);
         $options->set('isHtml5ParserEnabled', true);
         $options->set('isRemoteEnabled', true);
         $pdf->setOptions($options);
@@ -357,7 +377,8 @@ public function destroy(Laporan $laporan)
             'muzzaki_id' => 'nullable|string|max:255',
             'kwitansi' => 'required|string|max:255',
             'nama_muz' => 'required|string|max:255',
-            'jml_dana' => 'required|integer',
+            'jml_dana' => 'nullable|integer',
+            'jml_beras' => 'nullable|numeric',
             'keterangan' => 'required|string|max:255',
             'tanggal' => 'required|date',
         ]);
@@ -373,7 +394,16 @@ public function destroy(Laporan $laporan)
         $laporan->muzzaki_id = $request->muzzaki_id;
         $laporan->kwitansi = $request->kwitansi;
         $laporan->nama_muz = $request->nama_muz;
-        $laporan->jml_dana = $request->jml_dana;
+        if($request->jml_dana){
+            $laporan->jml_dana = $request->jml_dana;
+        }else{
+            $laporan->jml_dana = null;
+        }
+        if($request->jml_beras){
+            $laporan->jml_beras = $request->jml_beras;
+        }else{
+            $laporan->jml_beras = null;
+        }
         $laporan->keterangan = $request->keterangan;
         $laporan->tanggal = $request->tanggal;
 

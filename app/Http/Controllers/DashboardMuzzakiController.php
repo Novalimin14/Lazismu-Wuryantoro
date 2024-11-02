@@ -237,6 +237,10 @@ class DashboardMuzzakiController extends Controller
     public function exportPdf()
     {
         $data = Muzzaki::all(); // Ganti YourModel dengan model Anda
+        $path = public_path(). '/assets/img/Lazismu.png';
+        $type = pathinfo($path, PATHINFO_EXTENSION);
+        $dataimg = file_get_contents($path);
+        $image = 'data:image/'. $type . ';base64,' . base64_encode($dataimg);
 
         $pdf = new Dompdf();
         $options = new Options();
@@ -244,7 +248,7 @@ class DashboardMuzzakiController extends Controller
         $options->set('isRemoteEnabled', true);
         $pdf->setOptions($options);
 
-        $html = view('pages.muzzaki.print', compact('data'))->render(); // Sesuaikan dengan view Anda
+        $html = view('pages.muzzaki.print', compact('data','image'))->render(); // Sesuaikan dengan view Anda
         $pdf->loadHtml($html);
 
         // Render PDF

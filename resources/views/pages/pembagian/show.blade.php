@@ -17,6 +17,7 @@
                 <div class="card-body">
                     <p><strong>Pembagian:</strong> {{ $pembagian->pembagian }}</p>
                     <p><strong>Jumlah Dana:</strong> {{ $pembagian->jml_dana }}</p>
+                    <p><strong>Jumlah Beras:</strong> {{ $pembagian->jml_beras }}</p>
                     <p><strong>Keterangan:</strong> {{ $pembagian->keterangan }}</p>
                     <p><strong>Tanggal:</strong> {{ $pembagian->tanggal }}</p>
                     <p><strong>Mustahik:</strong></p>

@@ -40,7 +40,7 @@
 
                         <div class="form-group">
                             <label for="ktp">Nomor KTP</label>
-                            <input type="text" class="form-control" id="ktp" name="ktp" value="{{ old('ktp') }}" required>
+                            <input type="number" class="form-control" id="ktp" name="ktp" value="{{ old('ktp') }}" required>
                         </div>
 
                         <div class="form-group">
@@ -60,40 +60,74 @@
                             <input type="text" class="form-control" id="pekerjaan" name="pekerjaan" value="{{ old('pekerjaan') }}" required>
                         </div>
 
-                        <div class="form-group">
-                            <label for="jns_mus">Jenis Mustahik</label>
+                        <!-- <div class="form-group">
+                            <label for="jns_mus">Tipe Mustahik</label>
                             <input type="text" class="form-control" id="jns_mus" name="jns_mus" value="{{ old('jns_mus') }}" required>
+                        </div> -->
+                        <div class="form-group">
+                            <label for="jns_mus">Tipe Mustahik</label>
+                            <select class="form-control" id="jns_mus" name="jns_mus" required>
+                                <option value="Fakir" {{ old('jns_mus') == 'Fakir' ? 'selected' : '' }}>Fakir</option>
+                                <option value="Miskin" {{ old('jns_mus') == 'Miskin' ? 'selected' : '' }}>Miskin</option>
+                                <option value="Amil" {{ old('jns_mus') == 'Amil' ? 'selected' : '' }}>Amil</option>
+                                <option value="Muallaf" {{ old('jns_mus') == 'Muallaf' ? 'selected' : '' }}>Muallaf</option>
+                                <option value="Riqab" {{ old('jns_mus') == 'Riqab' ? 'selected' : '' }}>Riqab</option>
+                                <option value="Gharim" {{ old('jns_mus') == 'Gharim' ? 'selected' : '' }}>Gharim</option>
+                                <option value="Fisabilillah" {{ old('jns_mus') == 'Fisabilillah' ? 'selected' : '' }}>Fisabilillah</option>
+                                <option value="Ibnu Sabil" {{ old('jns_mus') == 'Ibnu Sabil' ? 'selected' : '' }}>Ibnu Sabil</option>
+                            </select>
                         </div>
 
+
                         <div class="form-group">
-                            <label for="tipe_mus">Tipe Mustahik</label>
-                            <input type="text" class="form-control" id="tipe_mus" name="tipe_mus" value="{{ old('tipe_mus') }}" required>
+                            <label for="tipe_mus">Subtipe Mustahik</label>
+                            <select class="form-control" id="tipe_mus" name="tipe_mus" required>
+                                <option value="Tipe 1" {{ old('tipe_mus') == 'Tipe 1' ? 'selected' : '' }}>Tipe 1</option>
+                                <option value="Tipe 2" {{ old('tipe_mus') == 'Tipe 2' ? 'selected' : '' }}>Tipe 2</option>
+                                <option value="Tipe 3" {{ old('tipe_mus') == 'Tipe 3' ? 'selected' : '' }}>Tipe 3</option>
+                            </select>
                         </div>
 
                         <div class="form-group">
                             <label for="KTM">Kartu Tanda Mahasiswa</label>
-                            <input type="text" class="form-control" id="KTM" name="KTM" value="{{ old('KTM') }}" required>
+                            <select class="form-control" id="KTM" name="KTM" required>
+                                <option value="Ada" {{ old('KTM') == 'Ada' ? 'selected' : '' }}>Ada</option>
+                                <option value="Tidak" {{ old('KTM') == 'Tidak' ? 'selected' : '' }}>Tidak</option>
+                            </select>
                         </div>
 
                         <div class="form-group">
                             <label for="spres">Surat Prestasi</label>
-                            <input type="text" class="form-control" id="spres" name="spres" value="{{ old('spres') }}" required>
+                            <select class="form-control" id="spres" name="spres" required>
+                                <option value="Ada" {{ old('spres') == 'Ada' ? 'selected' : '' }}>Ada</option>
+                                <option value="Tidak" {{ old('spres') == 'Tidak' ? 'selected' : '' }}>Tidak</option>
+                            </select>
                         </div>
 
                         <div class="form-group">
                             <label for="Skel">Surat Kelurahan (Usaha)</label>
-                            <input type="text" class="form-control" id="Skel" name="Skel" value="{{ old('Skel') }}" required>
+                            <select class="form-control" id="Skel" name="Skel" required>
+                                <option value="Ada" {{ old('Skel') == 'Ada' ? 'selected' : '' }}>Ada</option>
+                                <option value="Tidak" {{ old('Skel') == 'Tidak' ? 'selected' : '' }}>Tidak</option>
+                            </select>
                         </div>
 
                         <div class="form-group">
                             <label for="Sktm">Surat Keterangan Tidak Mampu</label>
-                            <input type="text" class="form-control" id="Sktm" name="Sktm" value="{{ old('Sktm') }}" required>
+                            <select class="form-control" id="Sktm" name="Sktm" required>
+                                <option value="Ada" {{ old('Sktm') == 'Ada' ? 'selected' : '' }}>Ada</option>
+                                <option value="Tidak" {{ old('Sktm') == 'Tidak' ? 'selected' : '' }}>Tidak</option>
+                            </select>
                         </div>
 
                         <div class="form-group">
                             <label for="sprem">Surat Pernyataan Kesanggupan</label>
-                            <input type="text" class="form-control" id="sprem" name="sprem" value="{{ old('sprem') }}" required>
+                            <select class="form-control" id="sprem" name="sprem" required>
+                                <option value="Ada" {{ old('sprem') == 'Ada' ? 'selected' : '' }}>Ada</option>
+                                <option value="Tidak" {{ old('sprem') == 'Tidak' ? 'selected' : '' }}>Tidak</option>
+                            </select>
                         </div>
+
 
                         <div class="form-group">
                             <label for="gaji">Gaji</label>
@@ -110,10 +144,10 @@
                             <input type="text" class="form-control" id="keterangan" name="keterangan" value="{{ old('keterangan') }}" required>
                         </div>
 
-                        <div class="form-group">
+                        <!-- <div class="form-group">
                             <label for="tanggal">Tanggal</label>
                             <input type="date" class="form-control" id="tanggal" name="tanggal" value="{{ old('tanggal') }}" required>
-                        </div>
+                        </div> -->
 
                         <div class="form-group">
                             <label for="link_maps">Link Maps</label>

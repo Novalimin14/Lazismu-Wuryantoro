@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Dompdf\Dompdf;
 use Dompdf\FrameDecorator\Table;
 use Dompdf\Options;
+use App\Http\Controllers\ValidationException;
 
 class PembagianController extends Controller
 {
@@ -94,7 +95,7 @@ class PembagianController extends Controller
     public function store(Request $request  ,Pembagian $pembagian)
     {
         //
-        $pembagian = Pembagian::create($request->only(['pembagian', 'jml_dana', 'keterangan', 'tanggal']));
+        $pembagian = Pembagian::create($request->only(['pembagian', 'jml_dana','jml_beras', 'keterangan', 'tanggal']));
         $pembagian->mustahiks()->sync($request->input('mustahik', []));
         return redirect()->route('pembagian.index')->with('success', 'Data pembagian berhasil ditambahkan');
     
@@ -115,15 +116,52 @@ class PembagianController extends Controller
     public function edit(Pembagian $pembagian)
     {
         //
+        $mustahiks = TableMustahik::all();
+        return view('pages.pembagian.edit', compact('pembagian','mustahiks'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Pembagian $pembagian)
-    {
-        //
+    public function update(Request $request,  $id)
+{
+    try {
+        // Validasi data
+        $validatedData = $request->validate([
+            'pembagian' => 'required|string|max:255',
+            'jml_dana' => 'nullable|numeric',
+            'jml_beras' => 'nullable|numeric',
+            'keterangan' => 'required|string|max:255',
+            'tanggal' => 'required|date',
+            'mustahik' => 'array',
+            'mustahik.*' => 'exists:table_mustahik,id'
+        ]);
+        $pembagian = Pembagian::find($id);
+        // dd($pembagian);
+        // Perbarui data Pembagian
+        $pembagian->update($validatedData);
+        
+        
+
+        // Sinkronisasi mustahik setelah pembagian diperbarui
+        if ($request->has('mustahik')) {
+            $pembagian->mustahiks()->sync($request->input('mustahik',[]));
+        } else {
+            $pembagian->mustahiks()->sync([]); // Synchronize with an empty array if no 'mustahik' input
+        }
+
+        return redirect()->route('pembagian.index')->with('success', 'Data pembagian berhasil diperbarui');
+
+    } catch (ValidationException $e) {
+        // Tangani kesalahan validasi jika terjadi
+        return redirect()->back()->withErrors($e->errors())->withInput();
+
+    } catch (QueryException $e) {
+        // Tangani kesalahan query jika terjadi
+        return redirect()->back()->with('error', 'Gagal menyimpan data: ' . $e->getMessage());
     }
+}
+
 
     /**
      * Remove the specified resource from storage.

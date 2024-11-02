@@ -82,7 +82,7 @@ class DashboardMustahikController extends Controller
             'gaji' => 'required|string|max:255',
             'status_2' => 'required|string|max:255',
             'keterangan' => 'required|string|max:255',
-            'tanggal' => 'required|date',
+            // 'tanggal' => 'required|date',
             'link_maps' => 'nullable|string|max:255',
         ]);
         $mustahik = new TableMustahik();
@@ -103,7 +103,7 @@ class DashboardMustahikController extends Controller
         $mustahik->gaji = $request->gaji;
         $mustahik->status_2 = $request->status_2;
         $mustahik->keterangan = $request->keterangan;
-        $mustahik->tanggal = $request->tanggal;
+        // $mustahik->tanggal = $request->tanggal;
         $mustahik->link_maps = $request->link_maps;
 
         // Simpan data ke dalam database
@@ -133,7 +133,7 @@ class DashboardMustahikController extends Controller
             'gaji' => 'required|string|max:255',
             'status_2' => 'required|string|max:255',
             'keterangan' => 'required|string|max:255',
-            'tanggal' => 'required|date',
+            // 'tanggal' => 'required|date',
             'link_maps' => 'nullable|string|max:255',
         ]);
         if ($validatedData->fails()) {
@@ -157,7 +157,7 @@ class DashboardMustahikController extends Controller
         $mustahik->gaji = $request->gaji;
         $mustahik->status_2 = $request->status_2;
         $mustahik->keterangan = $request->keterangan;
-        $mustahik->tanggal = $request->tanggal;
+        // $mustahik->tanggal = $request->tanggal;
         $mustahik->link_maps = $request->link_maps;
 
         // Simpan data ke dalam database
@@ -212,7 +212,7 @@ class DashboardMustahikController extends Controller
         'gaji' => 'required|string|max:255',
         'status_2' => 'required|string|max:255',
         'keterangan' => 'required|string|max:255',
-        'tanggal' => 'required|date',
+        // 'tanggal' => 'required|date',
         'link_maps' => 'nullable|string|max:255',
     ]);
                                                                                        
@@ -242,7 +242,7 @@ public function updateApi(Request $request, $id)
         'gaji' => 'required|string|max:255',
         'status_2' => 'required|string|max:255',
         'keterangan' => 'required|string|max:255',
-        'tanggal' => 'required|date',
+        // 'tanggal' => 'required|date',
         'link_maps' => 'nullable|string|max:255',
     ]);
 

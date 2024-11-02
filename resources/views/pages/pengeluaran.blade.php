@@ -108,9 +108,8 @@
                     <td>
                     {{ $item->pengeluaran }}
                     </td>
-                    <td>
-                    {{ $item->jml_dana }}
-                    </td>
+                    <td>{{ $item->jml_dana ? 'Rp. ' . number_format($item->jml_dana, 0, ',', '.') : '' }}</td>
+                
                     <td>
                     {{ $item->keterangan }}
                     </td>

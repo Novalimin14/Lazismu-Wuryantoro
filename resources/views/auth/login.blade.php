@@ -5,6 +5,7 @@
     'backgroundImage' => asset('assets') . "/img/bg14.jpg",
 ])
 
+
 @section('content')
     <div class="content">
         <div class="container">
@@ -29,7 +30,7 @@
             <div class="card card-login card-plain">
                 <div class="card-header ">
                 <div class="logo-container">
-                    <img src="{{ asset('assets/img/Lazismu.png') }}" alt="">
+                    <img src="{{ asset('assets/img/logo-putih.png') }}" alt="">
                 </div>
                 </div>
                 <div class="card-body ">
